@@ -5,9 +5,6 @@ import java.util.function.Predicate;
 
 public class CriptografiaCesariana implements Criptografia {
 
-	private final static Integer ASCII_DIGITO_ZERO = 48;
-	private final static Integer ASCII_DIGITO_NOVE = 57;
-	private final static Integer ASCII_ESPACO_EM_BRANCO = 32;
 	private final static Integer DESLOCAMENTO_CIFRA = 3;
 
 	@Override
@@ -24,9 +21,8 @@ public class CriptografiaCesariana implements Criptografia {
 
 		this.validarTexto(texto);
 
-		Predicate<Integer> condicaoDeslocamento = 
-				(caractere) -> !(caractere >= ASCII_DIGITO_ZERO && caractere <= ASCII_DIGITO_NOVE)
-						&& caractere != ASCII_ESPACO_EM_BRANCO;
+		Predicate<Integer> condicaoDeslocamento = (
+				caractere) -> !(Character.isDigit(caractere) || Character.isWhitespace(caractere));
 
 		return texto.toLowerCase().chars().map(
 				(caractere) -> condicaoDeslocamento.test(caractere) ? funcaoDeslocamento.apply(caractere) : caractere)
